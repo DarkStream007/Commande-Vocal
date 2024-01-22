@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Commande Vocal</title>
+	</head>
+	<style>
+		html, body{
+			height: 100%;
+		}
+		body{
+			background-color: gray;
+		}
+		h1{
+			font-size: 31px;
+			color: red;
+			text-align: center;
+		}
+		button.start, button.stop{
+			height: 50px;
+			width: 200px;
+			color: black;
+			font-size: #3DC1FF;
+			margin-left: 800px;
+		}
+		button.start{
+			display: block;
+		}
+		button.stop{
+			display: none;
+		}
+	</style>
+	<body>
+		<h1>Chapitre 1 000 000</h1>
+		
+		<button id = "start" class = "start">Commencer l'enregistrement </button>
+		<button id = "stop" class = "stop">Finir l'enregistrement </button>
+		
+		<p class = "erreur" id = "erreur"></p>
+	</body>
+	<script>
+	let voco = new webkitSpeechRecognition();
+	const start = document.getElementById("start").addEventListener('click', voco.onresult(event);
+	const stop = document.getElementById("stop").addEventListener('click', stop;);
+	voco.onresult = function (event){
+		voco.start();
+		let texte = event.results[0][0].transcript;
+		console.log("Texte Reconnue: " + texte");
+		start.style.display = "none";
+		stop.style.display = "block";
+	};
+	
+	let stop = function(){
+		voco.stop();
+		start.style.display: "block";
+		stop.style.display: "none";
+	}
+	
+	
+	</script>
+</html>

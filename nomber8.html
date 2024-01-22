@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>essais 8</title>
+	</head>
+	<style>
+		html, body{
+			height: 100%;
+		}
+		body{
+			background-color: gray;
+		}
+		h1{
+			font-size: 31px;
+			color: red;
+			text-align: center;
+		}
+		p.result{
+			color: green;
+		}
+	</style>
+	<body>
+		<h1>essais vocal 8</h1>
+		<button onclick = "lancer()" id = "lancer">Commencer L'enregistrement</button>
+		<button onclick = "fermer()" id = "stoper" disabled>Arréter l'Enregistrement </button>
+		<p id = "para"></p>
+		<p id = "result" class = "result"></p>
+	</body>
+	<script>
+		const but_lanc = document.getElementById("lancer");
+		const but_stop = document.getElementById("stoper");
+		const para = document.getElementById("para");
+		const resultat = document.getElementById("result");
+		
+		let voco = new webkitSpeechRecognition();
+		
+		function lancer(){
+			but_lanc.disabled = true;
+			but_stop.disabled = false;
+			voco.start();
+		}
+	
+		function fermer(){
+			but_lanc.disabled = false;
+			but_stop.disabled = true;
+			voco.stop();
+		}
+		
+		voco.onresult = (event) =>{
+			texte_voc = event.results[0][0].transcript;
+			para.innerHTML = "Texte enregistré: " + texte_voc;
+			
+			let code = ["gabriel", "Gabriel", "admin", "Admin", "Adeline"];
+			
+			if (code.includes(texte_voc.toLowerCase())){
+				resultat.innerHTML = "code bon";
+			}
+			else{
+				resultat.innerHTML = "code mauvais";
+			}
+		}
+	</script>
+</html>

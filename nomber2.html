@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Enregistrement</title>
+</head>
+<body>
+    <h1>Enregistrement vocal</h1>
+    
+    <button onclick = "lancer()" id = "bouton_lancer">Commencer l'enregistrement</button>
+    <button onclick = "stoper()" id = "bouton_stop" disabled>Arrêter l'enregistrement</button>
+    
+    <p id="result"></p>
+    
+    <script>
+        const resultDiv = document.getElementById('result');
+		const bouton_lancer = document.getElementById("bouton_lancer");
+		const bouton_stop = document.getElementById("bouton_stop");
+
+
+        let recognition = new webkitSpeechRecognition();
+
+        function lancer(){
+            bouton_lancer.disabled = true;
+            bouton_stop.disabled = false;
+			recognition.start();
+		};
+		function stoper(){
+            recognition.stop();
+            bouton_lancer.disabled = false;
+            bouton_stop.disabled = true;
+        };
+
+       
+		recognition.onresult = (event) => {
+            this.transcript = event.results[0][0].transcript;
+            resultDiv.innerHTML = "Texte enregistré :" +  transcript;
+        };
+		
+		if (transcript.value === "Gabriel"){
+			resultDiv.innerHTML = "code bon";
+		}
+    </script>
+</body>
+</html>

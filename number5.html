@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reconnaissance vocale</title>
+</head>
+<body>
+
+<button onclick="startRecording()">Commencer l'enregistrement</button>
+<p id="result"></p>
+
+<script>
+const resultElement = document.getElementById("result");
+
+function startRecording() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  
+  recognition.lang = 'fr-FR';
+  
+  recognition.onresult = function(event) {
+    const texteReconnu = event.results[0][0].transcript;
+    resultElement.textContent = "Texte enregistré : " + texteReconnu;
+
+    // Vérifie si le texte reconnu est "Gabriel"
+    if (texteReconnu.toLowerCase() === "gabriel") {
+      alert("Code bon !");
+    }
+  };
+
+  recognition.onerror = function(event) {
+    console.error("Erreur de reconnaissance vocale : ", event.error);
+  };
+
+  recognition.start();
+}
+</script>
+
+</body>
+</html>

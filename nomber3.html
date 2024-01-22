@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Essais seul</title>
+	</head>
+	<style>
+		html, body{
+			height: 100%;
+		}
+		body{
+			background-color: gray;
+		}
+		h1{
+			font-size: 31px;
+			color: red;
+			text-align: center;
+		}
+	</style>
+	<body>
+		<h1>Vocal</h1>
+		<button onclick = "lancer()" id = "bouton_lancer"> Lancer l'enregistrement </button>
+		<button onclick = "stoper()" id = "bouton_stop" disabled>Stoper L'enregistrement </button>
+		<p id = "para"></p>
+	</body>
+	<script>
+		const button_lancer = document.getElementById("bouton_lancer");
+		const button_stop = document.getElementById("bouton_stop");
+		const result = document.getElementById("para");
+	
+		let voco = new webkitSpeechRecognition(); 
+		
+		function lancer(){
+			button_lancer.disabled = true;
+			button_stop.disabled = false;
+			voco.start();
+		};
+		
+		function stoper(){
+			button_lancer.disabled = false;
+			button_stop.disabled = true;
+			voco.stop();
+		};
+		
+		voco.onresult = (event) => {
+			let texte = event.results[0][0].transcript;
+			result.innerHTML = "Texte enregistrer : " + texte;
+		}
+	</script>
+</html>

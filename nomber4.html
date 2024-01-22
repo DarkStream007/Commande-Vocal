@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Enregistrement 4</title>
+	</head>
+	<style>
+		html, body{
+			height: 100%;
+		}
+		body{
+			background-color: gray;
+		}
+		h1{
+			font-size: 31px;
+			color: red;
+			text-align: center;
+		}
+	</style>
+	<body>
+		<h1>Chapitre 44</h1>
+		<button onclick = "lancer()" id = "lancer">Lancer L'enregistrement</button>
+		<button onclick = "stoper()" id = "stoper" disabled>Stopper L'enregistrement</button>
+		<p id = "para"></p>
+	</body>
+	<script>
+		let but_lancer = document.getElementById("lancer");
+		let but_stop = document.getElementById("stoper");
+		let para = document.getElementById("para");
+		
+		let voco = new webkitSpeechRecognition();
+		
+		function lancer(){
+			but_lancer.disabled = true;
+			but_stop.disabled = false;
+			voco.start();
+		};
+		
+		function stoper(){
+			but_lancer.disabled = false;
+			but_stoper.disabled = true;
+			voco.stop();
+		};
+		
+		voco.onresult = (event) => {
+			let texte = event.results[0][0].transcript;
+			para.innerHTML = "Texte enregistré: " + texte;
+		}
+	</script>
+</html>

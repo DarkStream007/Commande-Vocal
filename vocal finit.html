@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Reconnaissance Vocal</title>
+	</head>
+	<style>
+		html, body{
+			height: 100%;
+		}
+		body{
+			background-color: gray;
+		}
+		h1{
+			font-size: 31px;
+			color: red;
+			text-align: center;
+		}
+	</style>
+	<body>
+		<h1>Chapitre Voc</h1>
+		<button onclick = "lancer()" id = "lancer">Commencer l'enregistrement</button>
+		<button onclick = "stoper()" id = "stoper" disabled> Finir l'enregistrement</button>
+		<p id = "para"></p>
+		<p id = "result"></p>
+	</body>
+	<script>
+		let lancer_but = document.getElementById("lancer");
+		let stoper_but = document.getElementById("stoper");
+		let para = document.getElementById("para");
+		let resultat = document.getElementById("result");
+		
+		let voco = new webkitSpeechRecognition();
+		
+		function lancer(){
+			lancer_but.disabled = true;
+			stoper_but.disabled = false;
+			voco.start()
+		}
+		function stoper(){
+			lancer_but.disabled = false;
+			stoper_but.disabled = true;
+			voco.stop();
+		}
+	
+		voco.onresult = (event) => {
+			let texte = event.results[0][0].transcript;
+			para.innerHTML = "Texte enregistre: " + texte;
+		
+		
+			let code = ["Gabriel", "gabriel"]; 
+		
+			if (code.includes(texte.toLowerCase())){
+				resultat.innerHTML = "code bon";
+			}
+			else{
+				resultat.innerHTML = "code mauvais";
+			}
+		};
+		/*
+			a se souvenir:
+				Mettre tout se qui touche au commande vocal dans voco.onresult car c'est un module (bizzard)
+				et par fais si sa fonction principal interagit avec d'autre fonction il dois etre dans son bloc de fonction
+				de toute facon c'est pas grave car c'est des fonction publics
+				
+				savoir les mot clef tel que: 
+				.toLowerCase => pour transformer la valeur vocal en chaine de carractére utilisable dans le code
+				.includes => permet de citer toute les valeurs présente dans une liste
+				.transcript => permet de transformer la valeur vocal en chaine de carractére affichable dans la page
+				
+				PS je me connais et je sais que le truc que je vais oublier et quelque chose qui n'est pas présente dans les définition 
+				mais bonne chance
+		*/
+	</script>
+</html>
